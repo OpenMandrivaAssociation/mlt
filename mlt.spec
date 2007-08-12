@@ -1,10 +1,10 @@
 %define name mlt
-%define version 0.2.2
-%define release %mkrel 9
-%define major	0.2.2
+%define version 0.2.4
+%define release %mkrel 1
+%define major	0.2.4
 
 %define libname		%mklibname %name %major
-%define libnamedev	%mklibname %name %major -d
+%define libnamedev	%mklibname %name -d
 %define libname_orig	lib%{name}
 
 %define use_mmx	0
@@ -16,7 +16,7 @@ Name:		%{name}
 Version:	%{version}
 Release: 	%{release}
 Source0:	%{name}-%{version}.tar.bz2
-Patch1:		%{name}-%{version}-noO4.patch
+Patch1:		%{name}-0.2.2-noO4.patch
 Patch2:		mlt-0.2.2-linuxppc.patch
 Patch3:		mlt-20070207.patch
 Patch4:		mlt-0.2.2-sox13.patch
@@ -86,9 +86,9 @@ applications which will use mlt.
 %setup -q
 %patch1 -p1 -b .noO4
 %patch2 -p1 -b .ppc
-%patch3 -p1 -b .20070207
-%patch4 -p1 -b .sox13
-%patch5 -p1 -b .swscale
+#patch3 -p1 -b .20070207
+#patch4 -p1 -b .sox13
+#patch5 -p1 -b .swscale
 perl -pi -e 's,(QTLIBS=.+)/lib\b,\1/%{_lib},' src/modules/qimage/configure
 
 %build
@@ -138,6 +138,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
-
-
-
