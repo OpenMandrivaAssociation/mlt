@@ -18,7 +18,6 @@ Release: 	%{release}
 Source0:	%{name}-%{version}.tar.bz2
 Patch1:		%{name}-0.2.2-noO4.patch
 Patch2:		mlt-0.2.2-linuxppc.patch
-Patch5:		mlt-0.2.2-swscale.patch
 License:	LGPL
 Group:		Video
 Url: 		http://mlt.sourceforge.net
@@ -84,7 +83,6 @@ applications which will use mlt.
 %setup -q
 %patch1 -p1 -b .noO4
 %patch2 -p1 -b .ppc
-#patch5 -p1 -b .swscale
 perl -pi -e 's,(QTLIBS=.+)/lib\b,\1/%{_lib},' src/modules/qimage/configure
 
 %build
