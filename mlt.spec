@@ -1,6 +1,6 @@
 %define name mlt
 %define version 0.2.4
-%define release %mkrel 1
+%define release %mkrel 2
 %define major	0.2.4
 
 %define libname		%mklibname %name %major
@@ -73,6 +73,7 @@ Requires:       %{libname} = %{version}
 Requires:	%{name} = %{version}
 Provides:       %{name}-devel = %{version}-%{release}
 Provides:	%{libname_orig}-devel = %{version}-%{release}
+Obsoletes:	%mklibname -d %name 0.2.2
 
 %description -n %{libnamedev}
 This package contains the headers that programmers will need to develop
