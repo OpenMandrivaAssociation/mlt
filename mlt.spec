@@ -1,6 +1,6 @@
 %define name mlt
 %define version 0.2.4
-%define release %mkrel 2
+%define release %mkrel 3
 %define major	0.2.4
 
 %define libname		%mklibname %name %major
@@ -40,6 +40,7 @@ BuildRequires:	SDL-devel
 BuildRequires:	sox-devel >= 12.18.1-2mdv2007.0
 BuildRequires:	ImageMagick
 BuildRequires:	mad-devel
+BuildRequires:	libjack-devel
 Requires: pango
 Requires: gtk2
 Requires: SDL
