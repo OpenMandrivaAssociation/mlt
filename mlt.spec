@@ -21,7 +21,6 @@ Patch2:		mlt-0.2.2-linuxppc.patch
 License:	LGPL
 Group:		Video
 Url: 		http://mlt.sourceforge.net
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	pkgconfig
 BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel >= 0.4.9-3.pre1
