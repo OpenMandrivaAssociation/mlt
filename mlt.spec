@@ -1,7 +1,8 @@
 %define name mlt
-%define version 0.2.4
-%define release %mkrel 3
-%define major	0.2.4
+%define version 0.2.5
+%define	svndate	20080123
+%define release 0.%{svndate}.%mkrel 1
+%define major	0.2.5
 
 %define libname		%mklibname %name %major
 %define libnamedev	%mklibname %name -d
@@ -15,7 +16,7 @@ Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Name:		%{name}
 Version:	%{version}
 Release: 	%{release}
-Source0:	%{name}-%{version}.tar.bz2
+Source0:	%{name}-%{version}-%{svndate}.tar.bz2
 Patch1:		%{name}-0.2.2-noO4.patch
 Patch2:		mlt-0.2.2-linuxppc.patch
 License:	LGPL
