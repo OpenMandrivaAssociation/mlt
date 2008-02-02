@@ -1,7 +1,7 @@
 %define name mlt
 %define version 0.2.5
 %define	svndate	20080123
-%define release 0.%{svndate}.%mkrel 1
+%define release 0.%{svndate}.%mkrel 2
 %define major	0.2.5
 
 %define libname		%mklibname %name %major
