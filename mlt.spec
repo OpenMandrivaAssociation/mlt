@@ -1,7 +1,7 @@
 %define name mlt
 %define version 0.3.0
 %define rel	1
-%define major	0.3.0
+%define major	1
 
 %define libname		%mklibname %name %major
 %define libnamedev	%mklibname %name -d
@@ -127,10 +127,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/inigo
 %{_bindir}/miracle
 %{_datadir}/*
+%{_libdir}/mlt
 
 %files -n %{libname}
 %defattr(-,root,root)
 %{_libdir}/lib*.so.%{major}*
+%{_libdir}/lib*.so.%{version}
 
 %files -n %{libnamedev}
 %defattr(-,root,root)
