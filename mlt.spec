@@ -1,8 +1,7 @@
 %define name mlt
-%define version 0.2.5
-%define	svndate	20080123
-%define release 0.%{svndate}.%mkrel 3
-%define major	0.2.5
+%define version 0.3.0
+%define rel	1
+%define major	0.3.0
 
 %define libname		%mklibname %name %major
 %define libnamedev	%mklibname %name -d
@@ -15,11 +14,12 @@
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Name:		%{name}
 Version:	%{version}
-Release: 	%{release}
-Source0:	%{name}-%{version}-%{svndate}.tar.bz2
+Release: 	%mkrel %rel
+Source0:	http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
+Patch0:		mlt-0.3.0-fix-underlink.patch
 Patch1:		%{name}-0.2.2-noO4.patch
 Patch2:		mlt-0.2.2-linuxppc.patch
-License:	LGPL
+License:	LGPLv2+
 Group:		Video
 Url: 		http://mlt.sourceforge.net
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -84,9 +84,9 @@ applications which will use mlt.
 
 %prep
 %setup -q
+%patch0 -p0 -b .underlink
 %patch1 -p1 -b .noO4
 %patch2 -p1 -b .ppc
-perl -pi -e 's,(QTLIBS=.+)/lib\b,\1/%{_lib},' src/modules/qimage/configure
 
 %build
 %configure2_5x \
@@ -106,7 +106,7 @@ perl -pi -e 's,(QTLIBS=.+)/lib\b,\1/%{_lib},' src/modules/qimage/configure
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%makeinstall
+%makeinstall_std
 %multiarch_binaries %{buildroot}%{_bindir}/mlt-config
 
 %clean
