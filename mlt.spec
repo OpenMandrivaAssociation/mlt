@@ -11,6 +11,8 @@
 %{?_with_mmx: %global use_mmx 1}
 %{?_without_mmx: %global use_mmx 0}
 
+%define useqt3 1
+
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Name:		%{name}
 Version:	%{version}
@@ -19,6 +21,7 @@ Source0:	http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
 Patch0:		mlt-0.3.0-fix-underlink.patch
 Patch1:		%{name}-0.2.2-noO4.patch
 Patch2:		mlt-0.2.2-linuxppc.patch
+Patch3:		mlt-0.3.0-enable-sox.patch
 License:	LGPLv2+
 Group:		Video
 Url: 		http://mlt.sourceforge.net
@@ -35,17 +38,19 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	multiarch-utils >= 1.0.3
 BuildRequires:	pango-devel
+%if %useqt3
 BuildRequires:	qt3-devel
+%else
+BuildRequires:  qt4-devel
+BuildConflicts:	qt3-devel
+%endif
 BuildRequires:  quicktime-devel
 BuildRequires:	SDL-devel
-BuildRequires:	sox-devel >= 12.18.1-2mdv2007.0
+# fwang: sox plugin does not build for sox 14.1
+#BuildRequires:	sox-devel >= 12.18.1-2mdv2007.0
 BuildRequires:	ImageMagick
 BuildRequires:	mad-devel
 BuildRequires:	libjack-devel
-Requires: pango
-Requires: gtk2
-Requires: SDL
-Requires: sox
 
 %description
 MLT is an open source multimedia framework, designed and developed for
@@ -87,6 +92,7 @@ applications which will use mlt.
 %patch0 -p0 -b .underlink
 %patch1 -p1 -b .noO4
 %patch2 -p1 -b .ppc
+%patch3 -p0 -b .sox
 
 %build
 %configure2_5x \
@@ -100,7 +106,15 @@ applications which will use mlt.
 	--luma-compress \
 	--enable-avformat \
 	--avformat-shared=%{_prefix} \
-	--enable-motion-est
+	--enable-motion-est \
+%if %useqt3
+	--force-qt3 \
+	--qimage-libdir=%{qt3lib} \
+	--qimage-includedir=%{qt3include} \
+%else
+	--qimage-libdir=%{qt4lib} \
+	--qimage-includedir=%{qt4include} \
+%endif
 
 %make
 
