@@ -1,8 +1,4 @@
-%define name mlt
-%define version 0.3.0
-%define rel	1
-%define major	1
-
+%define major 1
 %define libname		%mklibname %name %major
 %define libnamedev	%mklibname %name -d
 %define libname_orig	lib%{name}
@@ -11,33 +7,33 @@
 %{?_with_mmx: %global use_mmx 1}
 %{?_without_mmx: %global use_mmx 0}
 
-%define useqt3 1
+%define useqt3 0
+%{?_with_qt3: %global useqt3 1}
 
+Name: mlt
+Version: 0.3.0
+Release: %mkrel 2
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
-Name:		%{name}
-Version:	%{version}
-Release: 	%mkrel %rel
-Source0:	http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
-Patch0:		mlt-0.3.0-fix-underlink.patch
-Patch1:		%{name}-0.2.2-noO4.patch
-Patch2:		mlt-0.2.2-linuxppc.patch
-Patch3:		mlt-0.3.0-enable-sox.patch
-License:	LGPLv2+
-Group:		Video
-Url: 		http://mlt.sourceforge.net
+Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
+Patch0: mlt-0.3.0-fix-underlink.patch
+Patch1: %{name}-0.2.2-noO4.patch
+Patch2: mlt-0.2.2-linuxppc.patch
+License: LGPLv2+
+Group: Video
+Url: http://mlt.sourceforge.net
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:	pkgconfig
-BuildRequires:	ffmpeg
-BuildRequires:	ffmpeg-devel >= 0.4.9-3.pre1
-BuildRequires:	glib2-devel
-BuildRequires:	gtk2-devel
-BuildRequires:	ladspa-devel
-BuildRequires:	libdv-devel
-BuildRequires:	libsamplerate-devel
-BuildRequires:	libvorbis-devel
-BuildRequires:	libxml2-devel
-BuildRequires:	multiarch-utils >= 1.0.3
-BuildRequires:	pango-devel
+BuildRequires: pkgconfig
+BuildRequires: ffmpeg
+BuildRequires: ffmpeg-devel >= 0.4.9-3.pre1
+BuildRequires: glib2-devel
+BuildRequires: gtk2-devel
+BuildRequires: ladspa-devel
+BuildRequires: libdv-devel
+BuildRequires: libsamplerate-devel
+BuildRequires: libvorbis-devel
+BuildRequires: libxml2-devel
+BuildRequires: multiarch-utils >= 1.0.3
+BuildRequires: pango-devel
 %if %useqt3
 BuildRequires:	qt3-devel
 %else
@@ -46,8 +42,6 @@ BuildConflicts:	qt3-devel
 %endif
 BuildRequires:  quicktime-devel
 BuildRequires:	SDL-devel
-# fwang: sox plugin does not build for sox 14.1
-#BuildRequires:	sox-devel >= 12.18.1-2mdv2007.0
 BuildRequires:	ImageMagick
 BuildRequires:	mad-devel
 BuildRequires:	libjack-devel
@@ -92,7 +86,6 @@ applications which will use mlt.
 %patch0 -p0 -b .underlink
 %patch1 -p1 -b .noO4
 %patch2 -p1 -b .ppc
-%patch3 -p0 -b .sox
 
 %build
 %configure2_5x \
@@ -107,6 +100,7 @@ applications which will use mlt.
 	--enable-avformat \
 	--avformat-shared=%{_prefix} \
 	--enable-motion-est \
+    --disable-sox \
 %if %useqt3
 	--force-qt3 \
 	--qimage-libdir=%{qt3lib} \
