@@ -10,9 +10,19 @@
 %define useqt3 0
 %{?_with_qt3: %global useqt3 1}
 
+%define version 1.3.0
+%define snapshot 1180
+%define rel 1
+
+%if %snapshot
+%define release %mkrel 0.svn%snapshot.%rel
+%else
+%define release %mkrel %rel
+%endif
+
 Name: mlt
 Version: 0.3.0
-Release: %mkrel 2
+Release: %release
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
 Patch0: mlt-0.3.0-fix-underlink.patch
