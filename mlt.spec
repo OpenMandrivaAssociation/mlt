@@ -12,7 +12,7 @@
 
 %define version 0.3.1
 %define snapshot 1180
-%define rel 1
+%define rel 2
 
 %if %snapshot
 %define release %mkrel 0.svn%snapshot.%rel
@@ -91,6 +91,7 @@ Requires:	%{name} = %{version}
 Provides:       %{name}-devel = %{version}-%{release}
 Provides:	%{libname_orig}-devel = %{version}-%{release}
 Obsoletes:	%mklibname -d %name 0.3.0
+Obsoletes:	%mklibname -d %name 0.2.2
 
 %description -n %{libnamedev}
 This package contains the headers that programmers will need to develop
