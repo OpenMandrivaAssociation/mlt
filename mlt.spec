@@ -15,7 +15,7 @@
 %define rel 1
 
 %if %snapshot
-%define release %mkrel 0.svn%snapshot.%rel
+%define release %mkrel 3.svn%snapshot.%rel
 %else
 %define release %mkrel %rel
 %endif
