@@ -10,21 +10,27 @@
 %define useqt3 0
 %{?_with_qt3: %global useqt3 1}
 
-%define version 1.3.0
+%define version 0.3.1
 %define snapshot 1180
 %define rel 1
 
 %if %snapshot
-%define release %mkrel 3.svn%snapshot.%rel
+%define release %mkrel 0.svn%snapshot.%rel
 %else
 %define release %mkrel %rel
 %endif
 
 Name: mlt
-Version: 0.3.0
+Version: %version
 Release: %release
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
+%if %snapshot
+# http://mlt.svn.sourceforge.net/viewvc/mlt/trunk/mlt/
+Source: %{name}-r%{snapshot}.tar.bz2
+%else
 Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
+%endif
+
 Patch0: mlt-0.3.0-fix-underlink.patch
 Patch1: %{name}-0.2.2-noO4.patch
 Patch2: mlt-0.2.2-linuxppc.patch
@@ -84,7 +90,7 @@ Requires:       %{libname} = %{version}
 Requires:	%{name} = %{version}
 Provides:       %{name}-devel = %{version}-%{release}
 Provides:	%{libname_orig}-devel = %{version}-%{release}
-Obsoletes:	%mklibname -d %name 0.2.2
+Obsoletes:	%mklibname -d %name 0.3.0
 
 %description -n %{libnamedev}
 This package contains the headers that programmers will need to develop
@@ -92,10 +98,12 @@ applications which will use mlt.
 
 
 %prep
-%setup -q
+%setup -q -n %name
 %patch0 -p0 -b .underlink
 %patch1 -p1 -b .noO4
 %patch2 -p1 -b .ppc
+find ./ -name configure -exec chmod 755 {} \;
+chmod 755 src/modules/lumas/create_lumas
 
 %build
 %configure2_5x \
@@ -110,7 +118,7 @@ applications which will use mlt.
 	--enable-avformat \
 	--avformat-shared=%{_prefix} \
 	--enable-motion-est \
-    --disable-sox \
+	--disable-sox \
 %if %useqt3
 	--force-qt3 \
 	--qimage-libdir=%{qt3lib} \
