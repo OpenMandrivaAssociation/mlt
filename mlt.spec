@@ -12,7 +12,7 @@
 
 %define version 0.3.1
 %define snapshot 1180
-%define rel 2
+%define rel 3
 
 %if %snapshot
 %define release %mkrel 0.svn%snapshot.%rel
@@ -61,6 +61,7 @@ BuildRequires:	SDL-devel
 BuildRequires:	ImageMagick
 BuildRequires:	mad-devel
 BuildRequires:	libjack-devel
+BuildRequires:	sox-devel
 
 %description
 MLT is an open source multimedia framework, designed and developed for
@@ -119,7 +120,6 @@ chmod 755 src/modules/lumas/create_lumas
 	--enable-avformat \
 	--avformat-shared=%{_prefix} \
 	--enable-motion-est \
-	--disable-sox \
 %if %useqt3
 	--force-qt3 \
 	--qimage-libdir=%{qt3lib} \
