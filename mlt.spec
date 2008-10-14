@@ -11,8 +11,8 @@
 %{?_with_qt3: %global useqt3 1}
 
 %define version 0.3.1
-%define snapshot 1180
-%define rel 4
+%define snapshot 1184
+%define rel 1
 
 %if %snapshot
 %define release %mkrel 0.svn%snapshot.%rel
