@@ -12,7 +12,7 @@
 
 %define version 0.3.1
 %define snapshot 1180
-%define rel 3
+%define rel 4
 
 %if %snapshot
 %define release %mkrel 0.svn%snapshot.%rel
