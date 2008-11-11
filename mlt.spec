@@ -10,8 +10,8 @@
 %define useqt3 0
 %{?_with_qt3: %global useqt3 1}
 
-%define version 0.3.1
-%define snapshot 1184
+%define version 0.3.2
+%define snapshot 0
 %define rel 1
 
 %if %snapshot
@@ -32,7 +32,7 @@ Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
 %endif
 
 Patch0: mlt-0.3.0-fix-underlink.patch
-Patch1: %{name}-0.2.2-noO4.patch
+Patch1: %{name}-0.3.2-noO3.patch
 Patch2: mlt-0.2.2-linuxppc.patch
 License: LGPLv2+
 Group: Video
@@ -100,12 +100,10 @@ applications which will use mlt.
 
 
 %prep
-%setup -q -n %name
+%setup -q -n %name-%version
 %patch0 -p0 -b .underlink
-%patch1 -p1 -b .noO4
+%patch1 -p1 -b .noO3
 %patch2 -p1 -b .ppc
-find ./ -name configure -exec chmod 755 {} \;
-chmod 755 src/modules/lumas/create_lumas
 
 %build
 %configure2_5x \
