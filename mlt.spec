@@ -59,7 +59,7 @@ BuildConflicts:	qt3-devel
 %endif
 BuildRequires:  quicktime-devel
 BuildRequires:	SDL-devel
-BuildRequires:	ImageMagick
+BuildRequires:	imagemagick
 BuildRequires:	mad-devel
 BuildRequires:	libjack-devel
 BuildRequires:	sox-devel
