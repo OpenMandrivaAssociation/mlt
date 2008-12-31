@@ -32,7 +32,7 @@ Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
 %endif
 
 Patch0: mlt-0.3.0-fix-underlink.patch
-Patch1: %{name}-0.3.2-noO3.patch
+Patch1: %{name}-0.3.4-noO3.patch
 Patch2: mlt-0.2.2-linuxppc.patch
 License: LGPLv2+
 Group: Video
