@@ -10,9 +10,9 @@
 %define useqt3 0
 %{?_with_qt3: %global useqt3 1}
 
-%define version 0.3.2
+%define version 0.3.4
 %define snapshot 0
-%define rel 2
+%define rel 1
 
 %if %snapshot
 %define release %mkrel 0.svn%snapshot.%rel
@@ -34,7 +34,6 @@ Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
 Patch0: mlt-0.3.0-fix-underlink.patch
 Patch1: %{name}-0.3.2-noO3.patch
 Patch2: mlt-0.2.2-linuxppc.patch
-Patch3: mlt-0.3.2-build-sox-14.2.patch
 License: LGPLv2+
 Group: Video
 Url: http://mlt.sourceforge.net
@@ -104,8 +103,7 @@ applications which will use mlt.
 %setup -q -n %name-%version
 %patch0 -p0 -b .underlink
 %patch1 -p1 -b .noO3
-%patch2 -p1 -b .ppc
-%patch3 -p2 -b .sox
+#patch2 -p1 -b .ppc
 
 %build
 %configure2_5x \
