@@ -7,30 +7,11 @@
 %{?_with_mmx: %global use_mmx 1}
 %{?_without_mmx: %global use_mmx 0}
 
-%define useqt3 0
-%{?_with_qt3: %global useqt3 1}
-
-%define version 0.3.6
-%define snapshot 0
-%define rel 1
-
-%if %snapshot
-%define release %mkrel 0.svn%snapshot.%rel
-%else
-%define release %mkrel %rel
-%endif
-
 Name: mlt
-Version: %version
-Release: %release
+Version: 0.3.8
+Release: %mkrel 1
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
-%if %snapshot
-# http://mlt.svn.sourceforge.net/viewvc/mlt/trunk/mlt/
-Source: %{name}-r%{snapshot}.tar.bz2
-%else
 Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
-%endif
-
 Patch0: mlt-0.3.0-fix-underlink.patch
 Patch1: %{name}-0.3.6-noO3.patch
 Patch2: mlt-0.2.2-linuxppc.patch
@@ -50,12 +31,7 @@ BuildRequires: libvorbis-devel
 BuildRequires: libxml2-devel
 BuildRequires: multiarch-utils >= 1.0.3
 BuildRequires: pango-devel
-%if %useqt3
-BuildRequires:	qt3-devel
-%else
-BuildRequires:  qt4-devel
-BuildConflicts:	qt3-devel
-%endif
+BuildRequires: qt4-devel
 BuildRequires:  quicktime-devel
 BuildRequires:	SDL-devel
 BuildRequires:	imagemagick
@@ -103,7 +79,6 @@ applications which will use mlt.
 %setup -q -n %name-%version
 %patch0 -p0 -b .underlink
 %patch1 -p1 -b .noO3
-#patch2 -p1 -b .ppc
 
 %build
 %configure2_5x \
@@ -118,14 +93,8 @@ applications which will use mlt.
 	--enable-avformat \
 	--avformat-shared=%{_prefix} \
 	--enable-motion-est \
-%if %useqt3
-	--force-qt3 \
-	--qimage-libdir=%{qt3lib} \
-	--qimage-includedir=%{qt3include} \
-%else
 	--qimage-libdir=%{qt4lib} \
 	--qimage-includedir=%{qt4include} \
-%endif
 
 %make
 
