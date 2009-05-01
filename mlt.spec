@@ -12,9 +12,7 @@ Version: 0.3.8
 Release: %mkrel 1
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
-Patch0: mlt-0.3.0-fix-underlink.patch
-Patch1: %{name}-0.3.6-noO3.patch
-Patch2: mlt-0.2.2-linuxppc.patch
+Patch0: mlt-0.3.8-fix-underlink.patch
 License: LGPLv2+
 Group: Video
 Url: http://mlt.sourceforge.net
@@ -78,7 +76,6 @@ applications which will use mlt.
 %prep
 %setup -q -n %name-%version
 %patch0 -p0 -b .underlink
-%patch1 -p1 -b .noO3
 
 %build
 %configure2_5x \
