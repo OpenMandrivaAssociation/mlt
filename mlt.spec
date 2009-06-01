@@ -1,14 +1,15 @@
-%define major 1
+%define major		1
 %define libname		%mklibname %name %major
+%define libplus_major	2
+%define libplus		%mklibname mlt++ %libplus_major
 %define libnamedev	%mklibname %name -d
-%define libname_orig	lib%{name}
 
 %define use_mmx	0
 %{?_with_mmx: %global use_mmx 1}
 %{?_without_mmx: %global use_mmx 0}
 
 Name: mlt
-Version: 0.3.8
+Version: 0.4.2
 Release: %mkrel 1
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
@@ -50,12 +51,18 @@ API.
 %package -n     %{libname}
 Summary:        Main library for mlt 
 Group:          System/Libraries
-Provides:       %{libname_orig} = %{version}-%{release}
 
 %description -n %{libname}
 This package contains the libraries needed to run programs dynamically
 linked with mlt.
 
+%package -n	%{libplus}
+Summary:	Main library for mlt++
+Group:		System/Libraries
+
+%description -n	%{libplus}
+This package contains the libraries needed to run programs dynamically
+linked with mlt++.
 
 %package -n     %{libnamedev}
 Summary:        Headers for developing programs that will use mlt
@@ -64,9 +71,10 @@ Requires:       %{libname} = %{version}
 # mlt-config requires stuff from %{_datadir}/%{name}
 Requires:	%{name} = %{version}
 Provides:       %{name}-devel = %{version}-%{release}
-Provides:	%{libname_orig}-devel = %{version}-%{release}
+Provides:	lib%{name}-devel = %{version}-%{release}
 Obsoletes:	%mklibname -d %name 0.3.0
 Obsoletes:	%mklibname -d %name 0.2.2
+Obsoletes:	%{_lib}mlt++-devel < 0.4.0
 
 %description -n %{libnamedev}
 This package contains the headers that programmers will need to develop
@@ -98,7 +106,6 @@ applications which will use mlt.
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
-%multiarch_binaries %{buildroot}%{_bindir}/mlt-config
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -113,22 +120,22 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc docs COPYING README
-%{_bindir}/albino
-%{_bindir}/humperdink
-%{_bindir}/inigo
-%{_bindir}/miracle
-%{_datadir}/*
+%{_bindir}/melt
+%{_datadir}/mlt
 %{_libdir}/mlt
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/lib*.so.%{major}*
-%{_libdir}/lib*.so.%{version}
+%{_libdir}/libmlt.so.%{major}*
+%{_libdir}/libmlt.so.%{version}
+
+%files -n %{libplus}
+%defattr(-,root,root)
+%{_libdir}/libmlt++.so.%{libplus_major}*
+%{_libdir}/libmlt++.so.%{version}
 
 %files -n %{libnamedev}
 %defattr(-,root,root)
-%multiarch %{multiarch_bindir}/mlt-config
-%{_bindir}/mlt-config
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
