@@ -10,7 +10,7 @@
 
 Name: mlt
 Version: 0.4.2
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
 Patch0: mlt-0.3.8-fix-underlink.patch
@@ -68,6 +68,7 @@ linked with mlt++.
 Summary:        Headers for developing programs that will use mlt
 Group:          Development/C
 Requires:       %{libname} = %{version}
+Requires:	%{libplus} = %{version}
 # mlt-config requires stuff from %{_datadir}/%{name}
 Requires:	%{name} = %{version}
 Provides:       %{name}-devel = %{version}-%{release}
