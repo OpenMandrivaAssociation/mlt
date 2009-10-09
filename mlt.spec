@@ -1,6 +1,6 @@
-%define major		1
+%define major		2
 %define libname		%mklibname %name %major
-%define libplus_major	2
+%define libplus_major	3
 %define libplus		%mklibname mlt++ %libplus_major
 %define libnamedev	%mklibname %name -d
 
@@ -9,11 +9,10 @@
 %{?_without_mmx: %global use_mmx 0}
 
 Name: mlt
-Version: 0.4.4
+Version: 0.4.6
 Release: %mkrel 1
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
-Patch0: mlt-0.3.8-fix-underlink.patch
 License: LGPLv2+
 Group: Video
 Url: http://mlt.sourceforge.net
@@ -84,7 +83,6 @@ applications which will use mlt.
 
 %prep
 %setup -q -n %name-%version
-%patch0 -p0 -b .underlink
 
 %build
 %configure2_5x \
