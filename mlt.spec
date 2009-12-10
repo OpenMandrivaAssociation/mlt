@@ -9,7 +9,7 @@
 %{?_without_mmx: %global use_mmx 0}
 
 Name: mlt
-Version: 0.4.6
+Version: 0.4.10
 Release: %mkrel 1
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
