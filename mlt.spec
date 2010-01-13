@@ -10,7 +10,7 @@
 
 Name: mlt
 Version: 0.4.10
-Release: %mkrel 2
+Release: %mkrel 3
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
 License: LGPLv2+
@@ -165,5 +165,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n python-%{name}
 %defattr(-,root,root,-)
-%{python_sitelib}/%{name}.p*
-%{python_sitearch}/_%{name}.so
+%{py_platsitedir}/%{name}.p*
+%{py_platsitedir}/_%{name}.so
