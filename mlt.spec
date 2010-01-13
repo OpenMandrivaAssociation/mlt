@@ -10,7 +10,7 @@
 
 Name: mlt
 Version: 0.4.10
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Source0: http://ovh.dl.sourceforge.net/sourceforge/mlt/%name-%version.tar.gz
 License: LGPLv2+
@@ -24,18 +24,24 @@ BuildRequires: glib2-devel
 BuildRequires: gtk2-devel
 BuildRequires: ladspa-devel
 BuildRequires: libdv-devel
+BuildRequires: libogg-devel
 BuildRequires: libsamplerate-devel
 BuildRequires: libvorbis-devel
 BuildRequires: libxml2-devel
 BuildRequires: multiarch-utils >= 1.0.3
 BuildRequires: pango-devel
 BuildRequires: qt4-devel
-BuildRequires:  quicktime-devel
-BuildRequires:	SDL-devel
-BuildRequires:	imagemagick
-BuildRequires:	mad-devel
-BuildRequires:	libjack-devel
-BuildRequires:	sox-devel
+BuildRequires: quicktime-devel
+BuildRequires: SDL-devel
+BuildRequires: imagemagick
+BuildRequires: mad-devel
+BuildRequires: libjack-devel
+BuildRequires: sox-devel
+
+# For python-bindings
+
+BuildRequires: swig
+BuildRequires: python-devel
 
 %description
 MLT is an open source multimedia framework, designed and developed for
@@ -80,6 +86,15 @@ Obsoletes:	%{_lib}mlt++-devel < 0.4.0
 This package contains the headers that programmers will need to develop
 applications which will use mlt.
 
+%package -n  python-%{name}
+Summary:     Python bindings for MLT
+Group:	     Development/Python
+Requires:    python
+Requires:    %{name} = %{version}-%{release}
+Summary:     Python package to work with MLT
+
+%description -n     python-%{name}
+This module allows to work with MLT using python.
 
 %prep
 %setup -q -n %name-%version
@@ -91,20 +106,29 @@ applications which will use mlt.
 %if %use_mmx
 	--enable-mmx \
 %else
+	%ifarch x86_64
+	--enable-mmx \
+	--enable-sse \
+	%else
 	--disable-mmx \
+	%endif
 %endif
 	--luma-compress \
 	--enable-avformat \
 	--avformat-shared=%{_prefix} \
+	--avformat-swscale \
 	--enable-motion-est \
 	--qimage-libdir=%{qt4lib} \
 	--qimage-includedir=%{qt4include} \
-
+	--swig-languages='python'
 %make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
+install -d %{buildroot}%{py_platsitedir}
+install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py_platsitedir}/
+install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py_platsitedir}/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -138,3 +162,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
+
+%files -n python-%{name}
+%defattr(-,root,root,-)
+%{python_sitelib}/%{name}.p*
+%{python_sitearch}/_%{name}.so
