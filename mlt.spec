@@ -10,7 +10,7 @@
 
 Name: mlt
 Version: 0.5.10
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Source0: http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
 License: LGPLv2+
