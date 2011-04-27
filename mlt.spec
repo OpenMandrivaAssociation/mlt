@@ -1,4 +1,4 @@
-%define major		2
+%define major		4
 %define libname		%mklibname %name %major
 %define libplus_major	3
 %define libplus		%mklibname mlt++ %libplus_major
@@ -9,8 +9,8 @@
 %{?_without_mmx: %global use_mmx 0}
 
 Name: mlt
-Version: 0.5.10
-Release: %mkrel 2
+Version: 0.7.0
+Release: %mkrel 1
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Source0: http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
 License: LGPLv2+
@@ -97,7 +97,7 @@ Summary:     Python package to work with MLT
 This module allows to work with MLT using python.
 
 %prep
-%setup -q -n %name-%version
+%setup -qn %name-%version
 
 %build
 %configure2_5x \
