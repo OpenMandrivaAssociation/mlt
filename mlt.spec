@@ -9,7 +9,7 @@
 %{?_without_mmx: %global use_mmx 0}
 
 Name: mlt
-Version: 0.7.0
+Version: 0.7.6
 Release: %mkrel 1
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Source0: http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
@@ -37,6 +37,7 @@ BuildRequires: imagemagick
 BuildRequires: mad-devel
 BuildRequires: libjack-devel
 BuildRequires: sox-devel
+BuildRequires: frei0r-plugins-devel
 
 # For python-bindings
 
@@ -167,3 +168,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{py_platsitedir}/%{name}.p*
 %{py_platsitedir}/_%{name}.so
+
+
+%changelog
