@@ -37,7 +37,6 @@ BuildRequires: imagemagick
 BuildRequires: mad-devel
 BuildRequires: libjack-devel
 BuildRequires: sox-devel
-BuildRequires: frei0r-plugins-devel
 
 # For python-bindings
 
