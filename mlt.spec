@@ -124,14 +124,14 @@ This module allows to work with MLT using python.
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall_std
 install -d %{buildroot}%{py_platsitedir}
 install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py_platsitedir}/
 install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py_platsitedir}/
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
