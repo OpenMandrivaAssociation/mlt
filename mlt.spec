@@ -9,14 +9,13 @@
 %{?_without_mmx: %global use_mmx 0}
 
 Name: mlt
-Version: 0.7.6
-Release: %mkrel 1
+Version: 0.7.8
+Release: 1
 Summary: Mutton Lettuce Tomato Nonlinear Video Editor
 Source0: http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
 License: LGPLv2+
 Group: Video
 Url: http://mlt.sourceforge.net
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: pkgconfig
 BuildRequires: ffmpeg
 BuildRequires: ffmpeg-devel >= 0.4.9-3.pre1
@@ -35,7 +34,7 @@ BuildRequires: quicktime-devel
 BuildRequires: SDL-devel
 BuildRequires: imagemagick
 BuildRequires: mad-devel
-BuildRequires: libjack-devel
+BuildRequires: pkgconfig(jack)
 BuildRequires: sox-devel
 
 # For python-bindings
@@ -130,43 +129,25 @@ install -d %{buildroot}%{py_platsitedir}
 install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py_platsitedir}/
 install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py_platsitedir}/
 
-%clean
-rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
 %files
-%defattr(-,root,root)
 %doc docs COPYING README
 %{_bindir}/melt
 %{_datadir}/mlt
 %{_libdir}/mlt
 
 %files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/libmlt.so.%{major}*
 %{_libdir}/libmlt.so.%{version}
 
 %files -n %{libplus}
-%defattr(-,root,root)
 %{_libdir}/libmlt++.so.%{libplus_major}*
 %{_libdir}/libmlt++.so.%{version}
 
 %files -n %{libnamedev}
-%defattr(-,root,root)
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 
 %files -n python-%{name}
-%defattr(-,root,root,-)
 %{py_platsitedir}/%{name}.p*
 %{py_platsitedir}/_%{name}.so
-
-
-%changelog
