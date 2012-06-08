@@ -10,7 +10,7 @@
 
 Name: mlt
 Version: 0.8.0
-Release: 1
+Release: 2
 Summary: Media Lovin' Toolkit nonlinear video editing library
 Source0: http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
 License: LGPLv2+
@@ -35,7 +35,7 @@ BuildRequires: SDL-devel
 BuildRequires: imagemagick
 BuildRequires: mad-devel
 BuildRequires: pkgconfig(jack)
-BuildRequires: sox-devel
+BuildRequires: sox-devel >= 14.4.0
 
 # For python-bindings
 
