@@ -1,4 +1,4 @@
-%define major		4
+%define major		5
 %define libname		%mklibname %name %major
 %define libplus_major	3
 %define libplus		%mklibname mlt++ %libplus_major
@@ -9,9 +9,9 @@
 %{?_without_mmx: %global use_mmx 0}
 
 Name: mlt
-Version: 0.7.8
+Version: 0.8.0
 Release: 1
-Summary: Mutton Lettuce Tomato Nonlinear Video Editor
+Summary: Media Lovin' Toolkit nonlinear video editing library
 Source0: http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
 License: LGPLv2+
 Group: Video
