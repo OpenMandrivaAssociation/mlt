@@ -1,0 +1,45 @@
+--- mlt-0.7.8/src/modules/avformat/filter_avdeinterlace.c.orig	2012-02-14 07:02:46.000000000 +0100
++++ mlt-0.7.8/src/modules/avformat/filter_avdeinterlace.c	2012-02-27 13:30:29.000000000 +0100
+@@ -26,7 +26,9 @@
+ 
+ // ffmpeg Header files
+ #include <libavformat/avformat.h>
++#include <libavcodec/avcodec.h>
+ 
++#if 0
+ #ifdef USE_MMX
+ #include "mmx.h"
+ #else
+@@ -293,6 +295,7 @@
+ #endif
+     return 0;
+ }
++#endif
+ 
+ /** Do it :-).
+ */
+@@ -318,7 +321,7 @@
+ 
+ 		// Fill the picture
+ 		avpicture_fill( output, *image, PIX_FMT_YUYV422, *width, *height );
+-		mlt_avpicture_deinterlace( output, output, PIX_FMT_YUYV422, *width, *height );
++		avpicture_deinterlace( output, output, PIX_FMT_YUYV422, *width, *height );
+ 
+ 		// Free the picture
+ 		mlt_pool_release( output );
+@@ -346,6 +349,7 @@
+ 
+ mlt_filter filter_avdeinterlace_init( void *arg )
+ {
++#if 0
+ #ifndef USE_MMX
+ 	if ( ff_cropTbl[MAX_NEG_CROP + 1] == 0 )
+ 	{
+@@ -357,6 +361,7 @@
+ 		}
+ 	}
+ #endif
++#endif
+ 	mlt_filter filter = mlt_filter_new( );
+ 	if ( filter != NULL )
+ 		filter->process = deinterlace_process;
