@@ -1,2 +1,4 @@
+removed_sources:
+  mlt-0.8.2.tar.gz: 0bff1f13baaa8431de6969de62a827d45a9c178a
 sources:
-  "mlt-0.8.2.tar.gz": 0bff1f13baaa8431de6969de62a827d45a9c178a
+  mlt-0.8.8.tar.gz: 519dafb7d28f2e8cb8c9224696638f4256755be2
