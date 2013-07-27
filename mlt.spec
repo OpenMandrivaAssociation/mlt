@@ -1,18 +1,18 @@
-%define major		5
-%define libname		%mklibname %{name} %{major}
-%define libplus_major	3
-%define libplus		%mklibname mlt++ %{libplus_major}
-%define libnamedev	%mklibname %{name} -d
+%define major	5
+%define libname	%mklibname %{name} %{major}
+%define plusmaj	3
+%define libplus	%mklibname mlt++ %{plusmaj}
+%define devname	%mklibname %{name} -d
 
 %define use_mmx		0
 
 %{?_with_mmx: %global use_mmx 1}
 %{?_without_mmx: %global use_mmx 0}
 
+Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	0.8.8
 Release:	1
-Summary:	Media Lovin' Toolkit nonlinear video editing library
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
@@ -24,25 +24,23 @@ BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel
 BuildRequires:	ladspa-devel
 BuildRequires:	qt4-devel
+BuildRequires:	pkgconfig(frei0r)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gtk+-2.0)
-BuildRequires:	pkgconfig(libdv)
-BuildRequires:	pkgconfig(ogg)
-BuildRequires:	pkgconfig(samplerate)
-BuildRequires:	pkgconfig(vorbis)
-BuildRequires:	pkgconfig(libxml-2.0)
-BuildRequires:	pkgconfig(pango)
-BuildRequires:	pkgconfig(libquicktime)
-BuildRequires:	pkgconfig(sdl)
-BuildRequires:	pkgconfig(mad)
 BuildRequires:	pkgconfig(jack)
+BuildRequires:	pkgconfig(libdv)
+BuildRequires:	pkgconfig(libquicktime)
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(mad)
+BuildRequires:	pkgconfig(ogg)
+BuildRequires:	pkgconfig(pango)
+BuildRequires:	pkgconfig(samplerate)
+BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(sox)
-BuildRequires:	pkgconfig(frei0r)
-
+BuildRequires:	pkgconfig(vorbis)
 # For python-bindings
-
 BuildRequires:	swig
-BuildRequires:	python-devel
+BuildRequires:	pkgconfig(python)
 
 %description
 MLT is an open source multimedia framework, designed and developed for
@@ -70,17 +68,16 @@ Group:		System/Libraries
 This package contains the libraries needed to run programs dynamically
 linked with mlt++.
 
-%package -n %{libnamedev}
+%package -n %{devname}
 Summary:	Headers for developing programs that will use mlt
 Group:		Development/C
-Requires:	%{libname} = %{version}
-Requires:	%{libplus} = %{version}
+Requires:	%{libname} = %{version}-%{release}
+Requires:	%{libplus} = %{version}-%{release}
 # mlt-config requires stuff from %{_datadir}/%{name}
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Provides:	lib%{name}-devel = %{version}-%{release}
 
-%description -n %{libnamedev}
+%description -n %{devname}
 This package contains the headers that programmers will need to develop
 applications which will use mlt.
 
@@ -95,7 +92,7 @@ This module allows to work with MLT using python.
 
 %prep
 %setup -q
-%patch0 -p1
+%apply_patches
 
 %build
 %configure2_5x \
@@ -138,10 +135,10 @@ install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py_platsitedir}/
 %{_libdir}/libmlt.so.%{version}
 
 %files -n %{libplus}
-%{_libdir}/libmlt++.so.%{libplus_major}*
+%{_libdir}/libmlt++.so.%{plusmaj}*
 %{_libdir}/libmlt++.so.%{version}
 
-%files -n %{libnamedev}
+%files -n %{devname}
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
