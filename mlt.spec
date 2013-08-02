@@ -1,4 +1,4 @@
-%define major	5
+%define major	6
 %define libname	%mklibname %{name} %{major}
 %define plusmaj	3
 %define libplus	%mklibname mlt++ %{plusmaj}
@@ -11,7 +11,7 @@
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	0.8.8
+Version:	0.9.0
 Release:	1
 License:	LGPLv2+
 Group:		Video
