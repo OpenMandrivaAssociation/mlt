@@ -1,25 +1,22 @@
-%define major	6
-%define libname	%mklibname %{name} %{major}
-%define plusmaj	3
-%define libplus	%mklibname mlt++ %{plusmaj}
-%define devname	%mklibname %{name} -d
+%define major 6
+%define plusmaj 3
+%define libname %mklibname %{name} %{major}
+%define libplus %mklibname mlt++ %{plusmaj}
+%define devname %mklibname %{name} -d
 
-%define use_mmx		0
-
-%{?_with_mmx: %global use_mmx 1}
-%{?_without_mmx: %global use_mmx 0}
+%bcond_with mmx
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	0.9.0
-Release:	6
+Release:	7
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
 Source0:	http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
 Patch0:		mlt-0.7.6-fix-used-symbols.patch
+Patch1:		mlt-0.9.0-fix_freetype.patch
 BuildRequires:	imagemagick
-BuildRequires:	multiarch-utils >= 1.0.3
 BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel
 BuildRequires:	ladspa-devel
@@ -52,6 +49,14 @@ functionality of the system is provided via an assortment of ready to
 use tools, xml authoring components, and an extendible plug-in based
 API.
 
+%files
+%doc docs COPYING README
+%{_bindir}/melt
+%{_datadir}/mlt
+%{_libdir}/mlt
+
+#----------------------------------------------------------------------------
+
 %package -n %{libname}
 Summary:	Main library for mlt
 Group:		System/Libraries
@@ -59,6 +64,12 @@ Group:		System/Libraries
 %description -n %{libname}
 This package contains the libraries needed to run programs dynamically
 linked with mlt.
+
+%files -n %{libname}
+%{_libdir}/libmlt.so.%{major}*
+%{_libdir}/libmlt.so.%{version}
+
+#----------------------------------------------------------------------------
 
 %package -n %{libplus}
 Summary:	Main library for mlt++
@@ -68,37 +79,59 @@ Group:		System/Libraries
 This package contains the libraries needed to run programs dynamically
 linked with mlt++.
 
+%files -n %{libplus}
+%{_libdir}/libmlt++.so.%{plusmaj}*
+%{_libdir}/libmlt++.so.%{version}
+
+#----------------------------------------------------------------------------
+
 %package -n %{devname}
 Summary:	Headers for developing programs that will use mlt
 Group:		Development/C
-Requires:	%{libname} = %{version}-%{release}
-Requires:	%{libplus} = %{version}-%{release}
+Requires:	%{libname} = %{EVRD}
+Requires:	%{libplus} = %{EVRD}
 # mlt-config requires stuff from %{_datadir}/%{name}
-Requires:	%{name} = %{version}-%{release}
-Provides:	%{name}-devel = %{version}-%{release}
+Requires:	%{name} = %{EVRD}
+Provides:	%{name}-devel = %{EVRD}
 
 %description -n %{devname}
 This package contains the headers that programmers will need to develop
 applications which will use mlt.
 
+%files -n %{devname}
+%{_includedir}/*
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/*.pc
+
+#----------------------------------------------------------------------------
+
 %package -n python-%{name}
 Summary:	Python bindings for MLT
 Group:		Development/Python
 Requires:	python
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{EVRD}
 
 %description -n python-%{name}
 This module allows to work with MLT using python.
 
+%files -n python-%{name}
+%{py_platsitedir}/%{name}.p*
+%{py_platsitedir}/_%{name}.so
+
+#----------------------------------------------------------------------------
+
 %prep
 %setup -q
-%apply_patches
+%patch0 -p1
+%if %{mdvver} >= 201410
+%patch1 -p1
+%endif
 
 %build
 %configure2_5x \
 	--disable-debug \
 	--enable-gpl \
-%if %{use_mmx}
+%if %{with mmx}
 	--enable-mmx \
 %else
 	%ifarch x86_64
@@ -123,27 +156,4 @@ This module allows to work with MLT using python.
 install -d %{buildroot}%{py_platsitedir}
 install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py_platsitedir}/
 install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py_platsitedir}/
-
-%files
-%doc docs COPYING README
-%{_bindir}/melt
-%{_datadir}/mlt
-%{_libdir}/mlt
-
-%files -n %{libname}
-%{_libdir}/libmlt.so.%{major}*
-%{_libdir}/libmlt.so.%{version}
-
-%files -n %{libplus}
-%{_libdir}/libmlt++.so.%{plusmaj}*
-%{_libdir}/libmlt++.so.%{version}
-
-%files -n %{devname}
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
-
-%files -n python-%{name}
-%{py_platsitedir}/%{name}.p*
-%{py_platsitedir}/_%{name}.so
 
