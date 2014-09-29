@@ -37,7 +37,7 @@ BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(vorbis)
 # For python-bindings
 BuildRequires:	swig
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python3)
 
 %description
 MLT is an open source multimedia framework, designed and developed for
