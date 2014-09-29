@@ -1,0 +1,22 @@
+--- src/swig/python/build.orig	2014-09-29 06:46:49.525313478 +0100
++++ src/swig/python/build	2014-09-29 06:47:09.370312016 +0100
+@@ -11,7 +11,7 @@
+ if [ $? = 0 ]
+ then
+ 	# Change this as needed
+-	export PYTHON_INCLUDE=`python -c "import sys;print \"%s/include/python%d.%d\"%(sys.prefix,sys.version_info[0],sys.version_info[1])"`
++	export PYTHON_INCLUDE=`python -c "import sys;print (\"%s/include/python%d.%dm\"%(sys.prefix,sys.version_info[0],sys.version_info[1]))"`
+ 
+ 	[ ! -d "$PYTHON_INCLUDE" ] && echo python development missing && exit 1
+ 
+--- src/swig/mlt.i.orig	2014-09-29 09:24:53.694874173 +0100
++++ src/swig/mlt.i	2014-09-29 09:25:05.470873305 +0100
+@@ -237,7 +237,7 @@
+ %}
+ 
+ %typemap(out) binary_data {
+-	$result = PyString_FromStringAndSize( $1.data, $1.size );
++	$result = PyBytes_FromStringAndSize( $1.data, $1.size );
+ }
+ 
+ binary_data frame_get_waveform(Mlt::Frame&, int, int);
