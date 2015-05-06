@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   mlt-0.9.0.tar.gz: 76bf18f4442801fae963c5a676d6626e383d1617
+sources:
+  mlt-0.9.6.tar.gz: c14f32e76fe7e9b98cad37346396a9514a86e4a0

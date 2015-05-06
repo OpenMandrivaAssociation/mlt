@@ -11,8 +11,8 @@
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	0.9.0
-Release:	2
+Version:	0.9.6
+Release:	0.1
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
@@ -21,7 +21,7 @@ Patch0:		mlt-0.7.6-fix-used-symbols.patch
 BuildRequires:	imagemagick
 BuildRequires:	multiarch-utils >= 1.0.3
 BuildRequires:	ffmpeg
-BuildRequires:	ffmpeg-devel
+BuildRequires:	ffmpeg-devel >= 2.5.4
 BuildRequires:	ladspa-devel
 BuildRequires:	qt4-devel
 BuildRequires:	pkgconfig(frei0r)
