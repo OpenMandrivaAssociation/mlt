@@ -9,7 +9,7 @@
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	0.9.6
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
@@ -20,7 +20,12 @@ BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel
 BuildRequires:	ladspa-devel
-BuildRequires:	qt4-devel
+BuildRequires:	pkgconfig(Qt5Core)
+BuildRequires:	pkgconfig(Qt5Gui)
+BuildRequires:	pkgconfig(Qt5OpenGL)
+BuildRequires:	pkgconfig(Qt5Svg)
+BuildRequires:	pkgconfig(Qt5Widgets)
+BuildRequires:	pkgconfig(Qt5Xml)
 BuildRequires:	pkgconfig(frei0r)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gtk+-2.0)
@@ -126,7 +131,7 @@ This module allows to work with MLT using python.
 %patch1 -p0
 
 %build
-%configure2_5x \
+%configure \
 	--disable-debug \
 	--enable-gpl \
 %if %{with mmx}
@@ -144,9 +149,10 @@ This module allows to work with MLT using python.
 	--avformat-shared=%{_prefix} \
 	--avformat-swscale \
 	--enable-motion-est \
-	--qimage-libdir=%{qt4lib} \
-	--qimage-includedir=%{qt4include} \
+    --qt-libdir=%{_qt5_libdir} \
+    --qt-includedir=%{_qt5_includedir} \
 	--swig-languages='python'
+
 %make
 
 %install
