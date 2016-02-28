@@ -3,19 +3,20 @@
 %define libname %mklibname %{name} %{major}
 %define libplus %mklibname mlt++ %{plusmaj}
 %define devname %mklibname %{name} -d
+%define _disable_lto 1
 
 %bcond_with mmx
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	0.9.8
+Version:	6.0.0
 Release:	1
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
 Source0:	http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
-Patch0:		mlt-0.7.6-fix-used-symbols.patch
 Patch1:		mlt-0.9.2-py3.patch
+Patch2:		mlt-inline-asm-lto.patch
 BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel
@@ -72,7 +73,6 @@ linked with mlt.
 
 %files -n %{libname}
 %{_libdir}/libmlt.so.%{major}*
-%{_libdir}/libmlt.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -86,7 +86,7 @@ linked with mlt++.
 
 %files -n %{libplus}
 %{_libdir}/libmlt++.so.%{plusmaj}*
-%{_libdir}/libmlt++.so.%{version}
+%{_libdir}/libmlt++.so.%{major}*
 
 #----------------------------------------------------------------------------
 
@@ -127,12 +127,12 @@ This module allows to work with MLT using python.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p0
+%patch1 -p0 -b .py3~
+%patch2 -p1 -b .asm~
 
 %build
-export CC=gcc
-export CXX=g++
+#export CC=gcc
+#export CXX=g++
 %configure \
 	--disable-debug \
 	--enable-gpl \
@@ -151,8 +151,8 @@ export CXX=g++
 	--avformat-shared=%{_prefix} \
 	--avformat-swscale \
 	--enable-motion-est \
-    --qt-libdir=%{_qt5_libdir} \
-    --qt-includedir=%{_qt5_includedir} \
+	--qt-libdir=%{_qt5_libdir} \
+	--qt-includedir=%{_qt5_includedir} \
 	--swig-languages='python'
 
 %make
