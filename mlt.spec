@@ -9,8 +9,8 @@
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	6.0.0
-Release:	2
+Version:	6.4.1
+Release:	1
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
@@ -133,7 +133,7 @@ This module allows to work with MLT using python.
 %build
 #export CC=gcc
 #export CXX=g++
-%configure \
+CXXFLAGS="%{optflags} -std=gnu++14" %configure \
 	--disable-debug \
 	--enable-gpl \
 %if %{with mmx}
