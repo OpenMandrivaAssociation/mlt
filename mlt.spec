@@ -10,7 +10,7 @@
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	6.4.1
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
@@ -27,6 +27,11 @@ BuildRequires:	pkgconfig(Qt5OpenGL)
 BuildRequires:	pkgconfig(Qt5Svg)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(Qt5Xml)
+BuildRequires:	pkgconfig(libexif)
+BuildRequires:	pkgconfig(eigen3)
+BuildRequires:	pkgconfig(fftw3)
+BuildRequires:	pkgconfig(epoxy)
+BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(frei0r)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gtk+-2.0)
@@ -35,12 +40,14 @@ BuildRequires:	pkgconfig(libdv)
 BuildRequires:	pkgconfig(libquicktime)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(mad)
+BuildRequires:	pkgconfig(movit)
 BuildRequires:	pkgconfig(ogg)
 BuildRequires:	pkgconfig(pango)
 BuildRequires:	pkgconfig(samplerate)
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(vorbis)
+BuildRequires:	pkgconfig(opencv)
 # For python-bindings
 BuildRequires:	swig
 BuildRequires:	pkgconfig(python3)
@@ -136,14 +143,19 @@ This module allows to work with MLT using python.
 CXXFLAGS="%{optflags} -std=gnu++14" %configure \
 	--disable-debug \
 	--enable-gpl \
+	--enable-gpl3 \
+	--enable-opengl \
 %if %{with mmx}
 	--enable-mmx \
 %else
 	%ifarch x86_64
 	--enable-mmx \
 	--enable-sse \
+	--enable-sse2
 	%else
 	--disable-mmx \
+	--disable-sse \
+	--disable-sse2 \
 	%endif
 %endif
 	--luma-compress \
