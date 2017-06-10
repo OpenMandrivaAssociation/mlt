@@ -151,7 +151,7 @@ CXXFLAGS="%{optflags} -std=gnu++14" %configure \
 	%ifarch x86_64
 	--enable-mmx \
 	--enable-sse \
-	--enable-sse2
+	--enable-sse2 \
 	%else
 	--disable-mmx \
 	--disable-sse \
