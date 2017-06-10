@@ -47,6 +47,7 @@ BuildRequires:	pkgconfig(samplerate)
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(vorbis)
+BuildRequires:	pkgconfig(opencv)
 # For python-bindings
 BuildRequires:	swig
 BuildRequires:	pkgconfig(python3)
