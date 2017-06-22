@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   mlt-6.4.1.tar.gz: f2d946cf64fbd48485445cb6a4d604615dfc45d4
+sources:
+  mlt-20170614.tar.gz: f316d9666e5c36f854af0a86be54e798fdba7a55
