@@ -18,6 +18,8 @@ Source0:	http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar
 Patch1:		mlt-0.9.2-py3.patch
 Patch2:		mlt-inline-asm-lto.patch
 Patch3:		mlt-6.4.1-glibc-2.26.patch
+Patch4:		mlt-6.4.1-opencv-3.4.patch
+Patch5:		mlt-6.4.1-ffmpeg-3.5.patch
 BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel
@@ -135,9 +137,7 @@ This module allows to work with MLT using python.
 
 %prep
 %setup -q
-%patch1 -p0 -b .py3~
-%patch2 -p1 -b .asm~
-%patch3 -p1 -b .glibc226~
+%apply_patches
 
 %build
 #export CC=gcc

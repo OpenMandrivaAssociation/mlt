@@ -1,5 +1,5 @@
---- src/swig/python/build.orig	2014-09-29 06:46:49.525313478 +0100
-+++ src/swig/python/build	2014-09-29 06:47:09.370312016 +0100
+--- mlt/src/swig/python/build.orig	2014-09-29 06:46:49.525313478 +0100
++++ mlt/src/swig/python/build	2014-09-29 06:47:09.370312016 +0100
 @@ -11,7 +11,7 @@
  if [ $? = 0 ]
  then
@@ -9,8 +9,8 @@
  
  	[ ! -d "$PYTHON_INCLUDE" ] && echo python development missing && exit 1
  
---- src/swig/mlt.i.orig	2014-09-29 09:24:53.694874173 +0100
-+++ src/swig/mlt.i	2014-09-29 09:25:05.470873305 +0100
+--- mlt/src/swig/mlt.i.orig	2014-09-29 09:24:53.694874173 +0100
++++ mlt/src/swig/mlt.i	2014-09-29 09:25:05.470873305 +0100
 @@ -237,7 +237,7 @@
  %}
  
