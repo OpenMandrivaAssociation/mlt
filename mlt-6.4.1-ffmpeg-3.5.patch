@@ -87,7 +87,7 @@
  					}
  
 -					if (oc->oformat->flags & AVFMT_RAWPICTURE) 
-+					if (oc->oformat->video_codec == AV_CODEC_ID_RAWVIDEO) 
++					if (oc->oformat->video_codec == AV_CODEC_ID_WRAPPED_AVFRAME) 
  					{
  	 					// raw video case. The API will change slightly in the near future for that
  						AVPacket pkt;
@@ -96,7 +96,7 @@
  
  		// Flush video
 -		if ( video_st && !( oc->oformat->flags & AVFMT_RAWPICTURE ) ) for (;;)
-+		if ( video_st && !( oc->oformat->video_codec == AV_CODEC_ID_RAWVIDEO ) ) for (;;)
++		if ( video_st && !( oc->oformat->video_codec == AV_CODEC_ID_WRAPPED_AVFRAME ) ) for (;;)
  		{
  			AVCodecContext *c = video_st->codec;
  			AVPacket pkt;
