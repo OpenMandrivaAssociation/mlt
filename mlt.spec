@@ -10,7 +10,7 @@
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	6.4.1
-Release:	4
+Release:	5
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
@@ -20,6 +20,7 @@ Patch2:		mlt-inline-asm-lto.patch
 Patch3:		mlt-6.4.1-glibc-2.26.patch
 Patch4:		mlt-6.4.1-opencv-3.4.patch
 Patch5:		mlt-6.4.1-ffmpeg-3.5.patch
+Patch6:		mlt-6.4.1-crash_fix.patch
 BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel
