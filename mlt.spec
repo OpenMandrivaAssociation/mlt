@@ -10,7 +10,7 @@
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	6.4.1
-Release:	3
+Release:	4
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
@@ -18,6 +18,7 @@ Source0:	http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar
 Patch1:		mlt-0.9.2-py3.patch
 Patch2:		mlt-inline-asm-lto.patch
 Patch3:		mlt-6.4.1-glibc-2.26.patch
+Patch6:		mlt-6.4.1-crash_fix.patch
 BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel
@@ -138,6 +139,7 @@ This module allows to work with MLT using python.
 %patch1 -p0 -b .py3~
 %patch2 -p1 -b .asm~
 %patch3 -p1 -b .glibc226~
+%patch6 -p1
 
 %build
 #export CC=gcc
