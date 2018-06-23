@@ -139,8 +139,11 @@ This module allows to work with MLT using python.
 %apply_patches
 
 %build
-#export CC=gcc
-#export CXX=g++
+%ifarch %{ix86}
+# Workaround for compile failure with clang 7.0.0-0.333395.1
+export CC=gcc
+export CXX=g++
+%endif
 CXXFLAGS="%{optflags} -std=gnu++14" %configure \
 	--disable-debug \
 	--enable-gpl \
