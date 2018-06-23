@@ -10,7 +10,7 @@
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	6.8.0
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
@@ -51,6 +51,7 @@ BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	pkgconfig(opencv)
 # For python-bindings
 BuildRequires:	swig
+BuildRequires:	pkgconfig(python2)
 BuildRequires:	pkgconfig(python3)
 
 %description
@@ -134,6 +135,21 @@ This module allows to work with MLT using python.
 
 #----------------------------------------------------------------------------
 
+%package -n python2-%{name}
+Summary:	Python 2.x bindings for MLT
+Group:		Development/Python
+Requires:	python2
+Requires:	%{name} = %{EVRD}
+
+%description -n python2-%{name}
+This module allows to work with MLT using python2.
+
+%files -n python2-%{name}
+%{py2_platsitedir}/%{name}.p*
+%{py2_platsitedir}/_%{name}.so
+
+#----------------------------------------------------------------------------
+
 %prep
 %setup -q
 %apply_patches
@@ -179,3 +195,12 @@ install -d %{buildroot}%{py_platsitedir}
 install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py_platsitedir}/
 install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py_platsitedir}/
 
+# Build python2 version as well... Too much legacy cruft out there
+cd src/swig/python
+sed -i -e 's,python -c,python2 -c,g;s,python-config,python2-config,g;s,dm,d,g' build
+./build CXX=%{__cxx} CXXFLAGS="%{optflags}"
+cd ../../..
+
+install -d %{buildroot}%{py2_platsitedir}
+install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py2_platsitedir}/
+install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py2_platsitedir}/
