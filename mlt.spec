@@ -9,8 +9,8 @@
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	6.8.0
-Release:	2
+Version:	6.10.0
+Release:	1
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
@@ -131,7 +131,6 @@ This module allows to work with MLT using python.
 %files -n python-%{name}
 %{py_platsitedir}/%{name}.p*
 %{py_platsitedir}/_%{name}.so
-%{py_platsitedir}/__pycache__/*
 
 #----------------------------------------------------------------------------
 
