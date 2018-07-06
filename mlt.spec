@@ -9,8 +9,8 @@
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	6.4.1
-Release:	4
+Version:	6.10.0
+Release:	1
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
@@ -40,6 +40,7 @@ BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(jack)
 BuildRequires:	pkgconfig(libdv)
 BuildRequires:	pkgconfig(libquicktime)
+BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(mad)
 BuildRequires:	pkgconfig(movit)
@@ -52,6 +53,7 @@ BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	pkgconfig(opencv)
 # For python-bindings
 BuildRequires:	swig
+BuildRequires:	pkgconfig(python2)
 BuildRequires:	pkgconfig(python3)
 
 %description
@@ -134,16 +136,31 @@ This module allows to work with MLT using python.
 
 #----------------------------------------------------------------------------
 
+%package -n python2-%{name}
+Summary:	Python 2.x bindings for MLT
+Group:		Development/Python
+Requires:	python2
+Requires:	%{name} = %{EVRD}
+
+%description -n python2-%{name}
+This module allows to work with MLT using python2.
+
+%files -n python2-%{name}
+%{py2_platsitedir}/%{name}.p*
+%{py2_platsitedir}/_%{name}.so
+
+#----------------------------------------------------------------------------
+
 %prep
 %setup -q
-%patch1 -p0 -b .py3~
-%patch2 -p1 -b .asm~
-%patch3 -p1 -b .glibc226~
-%patch6 -p1
+%apply_patches
 
 %build
-#export CC=gcc
-#export CXX=g++
+%ifarch %{ix86}
+# Workaround for compile failure with clang 7.0.0-0.333395.1
+export CC=gcc
+export CXX=g++
+%endif
 CXXFLAGS="%{optflags} -std=gnu++14" %configure \
 	--disable-debug \
 	--enable-gpl \
@@ -179,3 +196,12 @@ install -d %{buildroot}%{py_platsitedir}
 install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py_platsitedir}/
 install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py_platsitedir}/
 
+# Build python2 version as well... Too much legacy cruft out there
+cd src/swig/python
+sed -i -e 's,python -c,python2 -c,g;s,python-config,python2-config,g;s,dm,d,g' build
+./build CXX=%{__cxx} CXXFLAGS="%{optflags}"
+cd ../../..
+
+install -d %{buildroot}%{py2_platsitedir}
+install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py2_platsitedir}/
+install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py2_platsitedir}/
