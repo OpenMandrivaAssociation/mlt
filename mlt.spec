@@ -131,6 +131,7 @@ This module allows to work with MLT using python.
 %files -n python-%{name}
 %{py_platsitedir}/%{name}.p*
 %{py_platsitedir}/_%{name}.so
+%{py_platsitedir}/__pycache__/*
 
 #----------------------------------------------------------------------------
 
