@@ -10,7 +10,7 @@
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	6.10.0
-Release:	2
+Release:	3
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
@@ -152,8 +152,7 @@ This module allows to work with MLT using python2.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 
 %build
 %ifarch %{ix86}
@@ -169,7 +168,7 @@ CXXFLAGS="%{optflags} -std=gnu++14" %configure \
 %if %{with mmx}
 	--enable-mmx \
 %else
-	%ifarch x86_64
+	%ifarch %{x86_64}
 	--enable-mmx \
 	--enable-sse \
 	--enable-sse2 \
@@ -188,10 +187,10 @@ CXXFLAGS="%{optflags} -std=gnu++14" %configure \
 	--qt-includedir=%{_qt5_includedir} \
 	--swig-languages='python'
 
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 install -d %{buildroot}%{py_platsitedir}
 install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py_platsitedir}/
 install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py_platsitedir}/
