@@ -46,7 +46,7 @@ BuildRequires:	pkgconfig(movit)
 BuildRequires:	pkgconfig(ogg)
 BuildRequires:	pkgconfig(pango)
 BuildRequires:	pkgconfig(samplerate)
-BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	pkgconfig(opencv)
@@ -165,6 +165,7 @@ CXXFLAGS="%{optflags} -std=gnu++14" %configure \
 	--enable-gpl \
 	--enable-gpl3 \
 	--enable-opengl \
+	--enable-opencv \
 %if %{with mmx}
 	--enable-mmx \
 %else
