@@ -152,6 +152,11 @@ This module allows to work with MLT using python2.
 %autosetup -p1
 
 %build
+# Don't overoptimize (breaks debugging)
+sed -i -e '/fomit-frame-pointer/d' configure
+sed -i -e '/ffast-math/d' configure
+sed -i -e 's|qmake|qmake-qt5|' src/modules/qt/configure
+
 %ifarch %{ix86}
 # Workaround for compile failure with clang 7.0.0-0.333395.1
 export CC=gcc
