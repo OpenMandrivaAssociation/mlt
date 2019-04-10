@@ -5,11 +5,9 @@
 %define devname %mklibname %{name} -d
 %define _disable_lto 1
 
-%bcond_with mmx
-
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	6.12.0
+Version:	6.14.0
 Release:	1
 License:	LGPLv2+
 Group:		Video
@@ -166,18 +164,14 @@ CXXFLAGS="%{optflags} -std=gnu++14" %configure \
 	--enable-gpl3 \
 	--enable-opengl \
 	--enable-opencv \
-%if %{with mmx}
-	--enable-mmx \
-%else
-	%ifarch %{x86_64}
+%ifarch %{x86_64}
 	--enable-mmx \
 	--enable-sse \
 	--enable-sse2 \
-	%else
+%else
 	--disable-mmx \
 	--disable-sse \
 	--disable-sse2 \
-	%endif
 %endif
 	--luma-compress \
 	--enable-avformat \
