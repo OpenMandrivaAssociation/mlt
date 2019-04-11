@@ -13,6 +13,7 @@ License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
 Source0:	http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
+Patch0:		mlt-6.14.0-fix-python3-detect.patch
 Patch2:		mlt-inline-asm-lto.patch
 BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
