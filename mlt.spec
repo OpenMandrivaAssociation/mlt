@@ -8,7 +8,7 @@
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	6.14.0
-Release:	1
+Release:	
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
@@ -19,6 +19,7 @@ BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel
 BuildRequires:	ladspa-devel
+BuildRequires:  qmake5
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5Gui)
 BuildRequires:	pkgconfig(Qt5OpenGL)
