@@ -4,11 +4,12 @@
 %define libplus %mklibname mlt++ %{plusmaj}
 %define devname %mklibname %{name} -d
 %define _disable_lto 1
+%global optflags %{optlfags} -O3
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	6.18.0
-Release:	2
+Version:	6.20.0
+Release:	1
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
