@@ -15,12 +15,12 @@ Group:		Video
 Url:		http://mlt.sourceforge.net
 Source0:	http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
 #Patch0:		mlt-6.14.0-fix-python3-detect.patch
-Patch2:		mlt-inline-asm-lto.patch
+#Patch2:		mlt-inline-asm-lto.patch
 BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel
 BuildRequires:	ladspa-devel
-BuildRequires:  qmake5
+BuildRequires:	qmake5
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5Gui)
 BuildRequires:	pkgconfig(Qt5OpenGL)
