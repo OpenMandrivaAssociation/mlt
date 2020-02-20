@@ -4,7 +4,7 @@
 %define libplus %mklibname mlt++ %{plusmaj}
 %define devname %mklibname %{name} -d
 %define _disable_lto 1
-%global optflags %{optlfags} -O3
+%global optflags %{optflags} -O3
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
