@@ -14,7 +14,6 @@ License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
 Source0:	http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
-Patch0:		mlt-6.20.0-qt-5.15.patch
 
 BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
