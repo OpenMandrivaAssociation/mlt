@@ -1,0 +1,57 @@
+diff -up mlt-6.24.0/src/modules/opencv/filter_opencv_tracker.cpp.omv~ mlt-6.24.0/src/modules/opencv/filter_opencv_tracker.cpp
+--- mlt-6.24.0/src/modules/opencv/filter_opencv_tracker.cpp.omv~	2021-02-06 20:54:10.293858691 +0100
++++ mlt-6.24.0/src/modules/opencv/filter_opencv_tracker.cpp	2021-02-06 21:22:27.389666133 +0100
+@@ -143,15 +143,18 @@ static void analyze( mlt_filter filter,
+ 		{
+ 			data->tracker = cv::TrackerCSRT::create();
+ 		}
++#if CV_VERSION_MAJOR < 5 && CV_VERSION_MINOR < 5
+ 		else if ( !strcmp(data->algo, "MOSSE" ) )
+ 		{
+ 			data->tracker = cv::TrackerMOSSE::create();
+ 		}
+ #endif
++#endif
+ 		else if ( !strcmp(data->algo, "MIL" ) )
+ 		{
+ 			data->tracker = cv::TrackerMIL::create();
+ 		}
++#if CV_VERSION_MAJOR < 5 && CV_VERSION_MINOR < 5
+ 		else if ( !strcmp(data->algo, "TLD" ) )
+ 		{
+ 			data->tracker = cv::TrackerTLD::create();
+@@ -160,6 +163,7 @@ static void analyze( mlt_filter filter,
+ 		{
+ 			data->tracker = cv::TrackerBoosting::create();
+ 		}
++#endif
+ #else
+ 		if ( data->algo == NULL || !strcmp(data->algo, "" ) )
+ 		{
+@@ -224,11 +228,11 @@ static void analyze( mlt_filter filter,
+ 			if ( data->boundingBox.height <1 ) {
+ 				data->boundingBox.height = 50;
+ 			}
+-			if ( data->tracker->init( cvFrame, data->boundingBox ) ) {
+-				data->initialized = true;
+-				data->analyze = true;
+-				data->last_position = position - 1;
+-			}
++			auto bb = data->boundingBox;
++			data->tracker->init( cvFrame, bb );
++			data->initialized = true;
++			data->analyze = true;
++			data->last_position = position - 1;
+ 			// init anim property
+ 			mlt_properties_anim_get_int( filter_properties, "_results", 0, length );
+ 			mlt_animation anim = mlt_properties_get_animation( filter_properties, "_results" );
+@@ -239,7 +243,8 @@ static void analyze( mlt_filter filter,
+ 	}
+ 	else
+ 	{
+-		data->tracker->update( cvFrame, data->boundingBox );
++		cv::Rect bb = { static_cast<int>(data->boundingBox.x), static_cast<int>(data->boundingBox.y), static_cast<int>(data->boundingBox.width), static_cast<int>(data->boundingBox.height) };
++		data->tracker->update( cvFrame, bb );
+ 	}
+ 	if( data->analyze && position != data->last_position + 1 )
+ 	{
