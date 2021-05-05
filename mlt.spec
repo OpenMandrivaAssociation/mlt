@@ -8,13 +8,13 @@
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	6.24.0
-Release:	2
+Version:	6.26.1
+Release:	1
 License:	LGPLv2+
 Group:		Video
 Url:		http://mlt.sourceforge.net
 Source0:	http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
-Patch0:		mlt-6.24.0-opencv-4.5.patch
+#Patch0:		mlt-6.24.0-opencv-4.5.patch
 
 BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
