@@ -54,6 +54,8 @@ BuildRequires:	cmake ninja
 # For python-bindings
 BuildRequires:	swig
 BuildRequires:	pkgconfig(python3)
+# For ruby bindings
+BuildRequires:	pkgconfig(ruby)
 
 %description
 MLT is an open source multimedia framework, designed and developed for
