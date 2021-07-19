@@ -1,19 +1,19 @@
-%define major 6
-%define plusmaj 3
-%define libname %mklibname %{name} %{major}
-%define libplus %mklibname mlt++ %{plusmaj}
+%define major 7
+%define plusmaj %{major}
+%define libname %mklibname %{name}-%{major} %{major}
+%define libplus %mklibname mlt++-%{major} %{plusmaj}
 %define devname %mklibname %{name} -d
 %define _disable_lto 1
 %global optflags %{optflags} -O3
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	6.26.1
+Version:	7.0.1
 Release:	1
 License:	LGPLv2+
 Group:		Video
-Url:		http://mlt.sourceforge.net
-Source0:	http://downloads.sourceforge.net/project/mlt/mlt/%{name}-%{version}.tar.gz
+Url:		http://mltframework.org/
+Source0:	https://github.com/mltframework/mlt/releases/download/v%{version}/mlt-%{version}.tar.gz
 #Patch0:		mlt-6.24.0-opencv-4.5.patch
 
 BuildRequires:	imagemagick
@@ -50,9 +50,9 @@ BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	pkgconfig(opencv4)
+BuildRequires:	cmake ninja
 # For python-bindings
 BuildRequires:	swig
-BuildRequires:	pkgconfig(python2)
 BuildRequires:	pkgconfig(python3)
 
 %description
@@ -66,10 +66,12 @@ use tools, xml authoring components, and an extendible plug-in based
 API.
 
 %files
-%doc docs COPYING README
+%doc docs COPYING
 %{_bindir}/melt
-%{_datadir}/mlt
-%{_libdir}/mlt
+%{_bindir}/melt-%{major}
+%{_datadir}/mlt-%{major}
+%{_libdir}/mlt-%{major}
+%{_mandir}/man1/melt-%{major}.1*
 
 #----------------------------------------------------------------------------
 
@@ -82,7 +84,7 @@ This package contains the libraries needed to run programs dynamically
 linked with mlt.
 
 %files -n %{libname}
-%{_libdir}/libmlt.so.%{major}*
+%{_libdir}/libmlt-%{major}.so.%{major}*
 
 #----------------------------------------------------------------------------
 
@@ -95,8 +97,10 @@ This package contains the libraries needed to run programs dynamically
 linked with mlt++.
 
 %files -n %{libplus}
-%{_libdir}/libmlt++.so.%{plusmaj}*
-%{_libdir}/libmlt++.so.%{major}*
+%{_libdir}/libmlt++-%{major}.so.%{plusmaj}*
+%if "%{plusmaj}" != "%{major}"
+%{_libdir}/libmlt++-%{major}.so.%{major}*
+%endif
 
 #----------------------------------------------------------------------------
 
@@ -117,6 +121,7 @@ applications which will use mlt.
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
+%{_libdir}/cmake/Mlt%{major}
 
 #----------------------------------------------------------------------------
 
@@ -130,79 +135,46 @@ Requires:	%{name} = %{EVRD}
 This module allows to work with MLT using python.
 
 %files -n python-%{name}
-%{py_platsitedir}/%{name}.p*
-%{py_platsitedir}/_%{name}.so
+%{py_platsitedir}/%{name}%{major}.p*
+%{py_platsitedir}/_%{name}%{major}.so
 %{py_platsitedir}/__pycache__/*
 
 #----------------------------------------------------------------------------
 
-%package -n python2-%{name}
-Summary:	Python 2.x bindings for MLT
-Group:		Development/Python
-Requires:	python2
+%package -n ruby-%{name}
+Summary:	Ruby bindings for MLT
+Group:		Development/Ruby
+Requires:	ruby
 Requires:	%{name} = %{EVRD}
 
-%description -n python2-%{name}
-This module allows to work with MLT using python2.
+%description -n ruby-%{name}
+This module allows to work with MLT using ruby.
 
-%files -n python2-%{name}
-%{py2_platsitedir}/%{name}.p*
-%{py2_platsitedir}/_%{name}.so
+%files -n ruby-%{name}
+%{_libdir}/ruby/vendor_ruby/mlt.so
 
 #----------------------------------------------------------------------------
 
 %prep
 %autosetup -p1
-
-%build
-# Don't overoptimize (breaks debugging)
-sed -i -e '/fomit-frame-pointer/d' configure
-sed -i -e '/ffast-math/d' configure
-sed -i -e 's|qmake|qmake-qt5|' src/modules/qt/configure
-
 %ifarch %{ix86}
 # Workaround for compile failure with clang 7.0.0-0.333395.1
 export CC=gcc
 export CXX=g++
 %endif
-CXXFLAGS="%{optflags} -std=gnu++14" %configure \
-	--disable-debug \
-	--enable-gpl \
-	--enable-gpl3 \
-	--enable-opengl \
-	--enable-opencv \
-%ifarch %{x86_64}
-	--enable-mmx \
-	--enable-sse \
-	--enable-sse2 \
-%else
-	--disable-mmx \
-	--disable-sse \
-	--disable-sse2 \
-%endif
-	--luma-compress \
-	--enable-avformat \
-	--avformat-shared=%{_prefix} \
-	--avformat-swscale \
-	--enable-motion-est \
-	--qt-libdir=%{_qt5_libdir} \
-	--qt-includedir=%{_qt5_includedir} \
-	--swig-languages='python'
+%cmake \
+	-DGPL:BOOL=ON \
+	-DGPL3:BOOL=ON \
+	-DMOD_OPENCV:BOOL=ON \
+	-DSWIG_PYTHON:BOOL=ON \
+	-DSWIG_RUBY:BOOL=ON \
+	-G Ninja
 
-%make_build
+%build
+%ninja_build -C build
 
 %install
-%make_install
-install -d %{buildroot}%{py_platsitedir}
-install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py_platsitedir}/
-install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py_platsitedir}/
-
-# Build python2 version as well... Too much legacy cruft out there
-cd src/swig/python
-sed -i -e 's,python -c,python2 -c,g;s,python-config,python2-config,g;s,dm,d,g' build
-./build CXX=%{__cxx} CXXFLAGS="%{optflags}"
-cd ../../..
-
-install -d %{buildroot}%{py2_platsitedir}
-install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py2_platsitedir}/
-install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py2_platsitedir}/
+%ninja_install -C build
+#install -d %{buildroot}%{py_platsitedir}
+#install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py_platsitedir}/
+#install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py_platsitedir}/
