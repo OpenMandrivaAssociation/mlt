@@ -9,7 +9,7 @@
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	7.8.0
-Release:	2
+Release:	3
 License:	LGPLv2+
 Group:		Video
 Url:		http://mltframework.org/
