@@ -29,6 +29,7 @@ BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(Qt5Xml)
 BuildRequires:	cmake(Qt6)
 BuildRequires:	cmake(Qt6Core)
+BuildRequires:	cmake(Qt6DBus)
 BuildRequires:	cmake(Qt6Gui)
 BuildRequires:	cmake(Qt6OpenGL)
 BuildRequires:	cmake(Qt6Svg)
@@ -57,6 +58,8 @@ BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	pkgconfig(opencv4)
+BuildRequires:	pkgconfig(xkbcommon-x11)
+BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	cmake ninja
 # For python-bindings
 BuildRequires:	swig
