@@ -8,8 +8,8 @@
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	7.8.0
-Release:	3
+Version:	7.10.0
+Release:	1
 License:	LGPLv2+
 Group:		Video
 Url:		http://mltframework.org/
@@ -27,6 +27,16 @@ BuildRequires:	pkgconfig(Qt5OpenGL)
 BuildRequires:	pkgconfig(Qt5Svg)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(Qt5Xml)
+BuildRequires:	cmake(Qt6)
+BuildRequires:	cmake(Qt6Core)
+BuildRequires:	cmake(Qt6Core5Compat)
+BuildRequires:	cmake(Qt6DBus)
+BuildRequires:	cmake(Qt6Gui)
+BuildRequires:	cmake(Qt6OpenGL)
+BuildRequires:	cmake(Qt6Svg)
+BuildRequires:	cmake(Qt6SvgWidgets)
+BuildRequires:	cmake(Qt6Widgets)
+BuildRequires:	cmake(Qt6Xml)
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(libexif)
 BuildRequires:	pkgconfig(eigen3)
@@ -50,6 +60,8 @@ BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	pkgconfig(opencv4)
+BuildRequires:	pkgconfig(xkbcommon-x11)
+BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	cmake ninja
 # For python-bindings
 BuildRequires:	swig
@@ -169,6 +181,7 @@ export CXX=g++
 	-DMOD_OPENCV:BOOL=ON \
 	-DSWIG_PYTHON:BOOL=ON \
 	-DSWIG_RUBY:BOOL=ON \
+	-DMOD_QT6=ON \
 	-G Ninja
 
 %build
