@@ -27,6 +27,7 @@ BuildRequires:	pkgconfig(Qt5OpenGL)
 BuildRequires:	pkgconfig(Qt5Svg)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(Qt5Xml)
+BuildRequires:	pkgconfig(rtaudio)
 BuildRequires:	cmake(Qt6)
 BuildRequires:	cmake(Qt6Core)
 BuildRequires:	cmake(Qt6Core5Compat)
@@ -181,7 +182,8 @@ export CXX=g++
 	-DMOD_OPENCV:BOOL=ON \
 	-DSWIG_PYTHON:BOOL=ON \
 	-DSWIG_RUBY:BOOL=ON \
-	-DMOD_QT6=ON \
+	-DMOD_GLAXNIMATE:BOOL=ON \
+	-DMOD_QT6:BOOL=ON \
 	-G Ninja
 
 %build
