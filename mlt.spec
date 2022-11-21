@@ -63,6 +63,7 @@ BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	pkgconfig(opencv4)
 BuildRequires:	pkgconfig(xkbcommon-x11)
 BuildRequires:	pkgconfig(xkbcommon)
+BuildRequires:	pkgconfig(libarchive)
 BuildRequires:	cmake ninja
 # For python-bindings
 BuildRequires:	swig
