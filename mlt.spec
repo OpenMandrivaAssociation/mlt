@@ -71,6 +71,7 @@ BuildRequires:	pkgconfig(libarchive)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(rubberband)
 BuildRequires:	pkgconfig(vidstab)
+BuildRequires:	pkgconfig(lua)
 BuildRequires:	cmake ninja
 # For python-bindings
 BuildRequires:	swig
