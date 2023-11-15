@@ -60,6 +60,7 @@ BuildRequires:	pkgconfig(movit)
 BuildRequires:	pkgconfig(ogg)
 BuildRequires:	pkgconfig(pango)
 BuildRequires:	pkgconfig(samplerate)
+BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(vorbis)
@@ -68,6 +69,8 @@ BuildRequires:	pkgconfig(xkbcommon-x11)
 BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	pkgconfig(libarchive)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(rubberband)
+BuildRequires:	pkgconfig(vidstab)
 BuildRequires:	cmake ninja
 # For python-bindings
 BuildRequires:	swig
@@ -331,6 +334,7 @@ export CXX=g++
 	-DGPL:BOOL=ON \
 	-DGPL3:BOOL=ON \
 	-DMOD_OPENCV:BOOL=ON \
+	-DSWIG_LUA:BOOL=ON \
 	-DSWIG_PYTHON:BOOL=ON \
 	-DSWIG_RUBY:BOOL=ON \
 	-DMOD_GLAXNIMATE:BOOL=ON \
