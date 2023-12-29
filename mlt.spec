@@ -10,12 +10,11 @@
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	7.22.0
-Release:	2
+Release:	3
 License:	LGPLv2+
 Group:		Video
 Url:		http://mltframework.org/
 Source0:	https://github.com/mltframework/mlt/releases/download/v%{version}/mlt-%{version}.tar.gz
-
 
 BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
