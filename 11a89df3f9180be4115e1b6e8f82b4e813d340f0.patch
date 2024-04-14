@@ -1,0 +1,29 @@
+From 11a89df3f9180be4115e1b6e8f82b4e813d340f0 Mon Sep 17 00:00:00 2001
+From: Brian Matherly <brian.matherly@yahoo.com>
+Date: Fri, 8 Mar 2024 22:20:08 -0600
+Subject: [PATCH] Report the channel layout so the application can use it
+
+---
+ src/modules/avformat/producer_avformat.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/src/modules/avformat/producer_avformat.c b/src/modules/avformat/producer_avformat.c
+index 09007d93f..9573aeed8 100644
+--- a/src/modules/avformat/producer_avformat.c
++++ b/src/modules/avformat/producer_avformat.c
+@@ -519,6 +519,15 @@ static mlt_properties find_default_streams(producer_avformat self)
+             mlt_properties_set_int(meta_media, key, codec_params->sample_rate);
+             snprintf(key, sizeof(key), "meta.media.%u.codec.channels", i);
+             mlt_properties_set_int(meta_media, key, codec_params->channels);
++            snprintf(key, sizeof(key), "meta.media.%u.codec.layout", i);
++            mlt_channel_layout mlt_layout = mlt_channel_independent;
++            if (codec_params->channel_layout == 0)
++                mlt_layout = av_channel_layout_to_mlt(
++                    av_get_default_channel_layout(codec_params->channels));
++            else
++                mlt_layout = av_channel_layout_to_mlt(codec_params->channel_layout);
++            char *layout = mlt_audio_channel_layout_name(mlt_layout);
++            mlt_properties_set(meta_media, key, layout);
+             break;
+         default:
+             break;

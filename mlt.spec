@@ -78,6 +78,13 @@ BuildRequires:	pkgconfig(python3)
 # For ruby bindings
 BuildRequires:	pkgconfig(ruby)
 
+%patchlist
+https://github.com/mltframework/mlt/commit/11a89df3f9180be4115e1b6e8f82b4e813d340f0.patch
+https://github.com/mltframework/mlt/commit/bd72d4732aab994b1da7f8c4619802a17a519206.patch
+https://github.com/mltframework/mlt/commit/c4619425f768604254e44b9da87413b84e33f062.patch
+https://github.com/mltframework/mlt/commit/805b8fa3f2d54e3948499173756062709e0ce9b6.patch
+https://github.com/mltframework/mlt/commit/d63f0817c7810f3ae7e093f09a0754776f7b4170.patch
+
 %description
 MLT is an open source multimedia framework, designed and developed for
 television broadcasting.
