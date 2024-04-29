@@ -52,6 +52,7 @@ BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(jack)
 BuildRequires:	pkgconfig(libdv)
 BuildRequires:	pkgconfig(libquicktime)
+BuildRequires:	pkgconfig(libebur128)
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(mad)
@@ -77,7 +78,6 @@ BuildRequires:	swig
 BuildRequires:	pkgconfig(python3)
 # For ruby bindings
 BuildRequires:	pkgconfig(ruby)
-BuildRequires:	%{_lib}clangFormat-static-devel
 
 %description
 MLT is an open source multimedia framework, designed and developed for
