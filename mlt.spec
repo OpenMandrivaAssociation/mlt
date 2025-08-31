@@ -16,6 +16,7 @@ Group:		Video
 Url:		https://mltframework.org/
 Source0:	https://github.com/mltframework/mlt/releases/download/v%{version}/mlt-%{version}.tar.gz
 
+BuildRequires:	clang-tools
 BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel
