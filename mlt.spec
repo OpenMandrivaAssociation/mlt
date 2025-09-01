@@ -9,13 +9,14 @@
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	7.32.0
-Release:	5
+Version:	7.32.0.20250830
+Release:	1
 License:	LGPLv2+
 Group:		Video
 Url:		https://mltframework.org/
 Source0:	https://github.com/mltframework/mlt/releases/download/v%{version}/mlt-%{version}.tar.gz
 
+BuildRequires:	clang-tools
 BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel
@@ -115,6 +116,7 @@ API.
 %{_datadir}/mlt-%{major}/vorbis
 %{_datadir}/mlt-%{major}/xml
 %dir %{_libdir}/mlt-%{major}
+%{_libdir}/mlt-%{major}/libmltladspa.so
 %{_libdir}/mlt-%{major}/libmltavformat.so
 %{_libdir}/mlt-%{major}/libmltcore.so
 %{_libdir}/mlt-%{major}/libmltdecklink.so
@@ -340,6 +342,7 @@ export CXX=g++
 	-DSWIG_RUBY:BOOL=ON \
 	-DMOD_GLAXNIMATE:BOOL=ON \
 	-DMOD_GLAXNIMATE_QT6:BOOL=ON \
+ 	-DMOD_SDL1=ON \
 	-DMOD_QT:BOOL=ON \
 	-DMOD_QT6:BOOL=ON \
 	-G Ninja
