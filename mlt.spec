@@ -170,8 +170,8 @@ Group: System/Libraries
 SDL 1.x integration plugin for MLT
 
 %files sdl1
-%{_libdir}/mlt-%{major}/libmltsdl.so
-%{_datadir}/mlt-%{major}/sdl
+#{_libdir}/mlt-%{major}/libmltsdl.so
+#{_datadir}/mlt-%{major}/sdl
 
 #----------------------------------------------------------------------------
 %package sdl2
