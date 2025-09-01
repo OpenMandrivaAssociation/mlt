@@ -116,6 +116,7 @@ API.
 %{_datadir}/mlt-%{major}/vorbis
 %{_datadir}/mlt-%{major}/xml
 %dir %{_libdir}/mlt-%{major}
+%{_libdir}/mlt-%{major}/libmltladspa.so
 %{_libdir}/mlt-%{major}/libmltavformat.so
 %{_libdir}/mlt-%{major}/libmltcore.so
 %{_libdir}/mlt-%{major}/libmltdecklink.so
@@ -170,8 +171,8 @@ Group: System/Libraries
 SDL 1.x integration plugin for MLT
 
 %files sdl1
-#{_libdir}/mlt-%{major}/libmltsdl.so
-#{_datadir}/mlt-%{major}/sdl
+%{_libdir}/mlt-%{major}/libmltsdl.so
+%{_datadir}/mlt-%{major}/sdl
 
 #----------------------------------------------------------------------------
 %package sdl2
@@ -341,6 +342,7 @@ export CXX=g++
 	-DSWIG_RUBY:BOOL=ON \
 	-DMOD_GLAXNIMATE:BOOL=ON \
 	-DMOD_GLAXNIMATE_QT6:BOOL=ON \
+ 	-DMOD_SDL1=ON \
 	-DMOD_QT:BOOL=ON \
 	-DMOD_QT6:BOOL=ON \
 	-G Ninja
