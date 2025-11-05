@@ -345,7 +345,6 @@ export CXX=g++
  	-DMOD_SDL1=ON \
 	-DMOD_QT:BOOL=ON \
 	-DMOD_QT6:BOOL=ON \
-	-DCMAKE_CXX_STANDARD=17 -DCMAKE_CXX_FLAGS="%{optflags}" \
 	-G Ninja
 
 %build
