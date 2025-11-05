@@ -348,7 +348,6 @@ export CXX=g++
 	-G Ninja
 
 %build
-export CXXFLAGS="%{optflags} -fpermissive"
 %ninja_build -C build
 
 %install
