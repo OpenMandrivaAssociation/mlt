@@ -9,8 +9,8 @@
 
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
-Version:	7.34.1
-Release:	2
+Version:	7.36.1
+Release:	1
 License:	LGPLv2+
 Group:		Video
 Url:		https://mltframework.org/
@@ -21,14 +21,6 @@ BuildRequires:	imagemagick
 BuildRequires:	ffmpeg
 BuildRequires:	ffmpeg-devel
 BuildRequires:	ladspa-devel
-BuildRequires:	qmake5
-BuildRequires:	pkgconfig(Qt5Core)
-BuildRequires:	pkgconfig(Qt5Gui)
-BuildRequires:	pkgconfig(Qt5Network)
-BuildRequires:	pkgconfig(Qt5OpenGL)
-BuildRequires:	pkgconfig(Qt5Svg)
-BuildRequires:	pkgconfig(Qt5Widgets)
-BuildRequires:	pkgconfig(Qt5Xml)
 BuildRequires:	pkgconfig(rtaudio)
 BuildRequires:	cmake(Qt6)
 BuildRequires:	cmake(Qt6Core)
@@ -56,6 +48,7 @@ BuildRequires:	pkgconfig(libquicktime)
 BuildRequires:	pkgconfig(libebur128)
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(lilv-0)
 BuildRequires:	pkgconfig(mad)
 BuildRequires:	pkgconfig(movit)
 BuildRequires:	pkgconfig(ogg)
@@ -74,6 +67,8 @@ BuildRequires:	pkgconfig(rubberband)
 BuildRequires:	pkgconfig(vidstab)
 BuildRequires:	pkgconfig(lua)
 BuildRequires:	cmake ninja
+BuildRequires:	qt6-qtbase-theme-gtk3
+BuildRequires:	vulkan-headers
 # For python-bindings
 BuildRequires:	swig
 BuildRequires:	pkgconfig(python3)
@@ -188,27 +183,11 @@ SDL 2.x integration plugin for MLT
 %{_datadir}/mlt-%{major}/sdl2
 
 #----------------------------------------------------------------------------
-%package qt5
-Summary: Qt 5.x integration plugin for MLT
-Requires: %{name} = %{EVRD}
-Group: System/Libraries
-
-%description qt5
-Qt 5.x integration plugin for MLT
-
-%files qt5
-%{_libdir}/mlt-%{major}/libmltqt.so
-%{_libdir}/mlt-%{major}/libmltglaxnimate.so
-%{_libdir}/mlt-%{major}/libmltkdenlive.so
-%{_datadir}/mlt-%{major}/glaxnimate
-%{_datadir}/mlt-%{major}/kdenlive
-%{_datadir}/mlt-%{major}/qt
-
-#----------------------------------------------------------------------------
 %package qt6
 Summary: Qt 6.x integration plugin for MLT
 Requires: %{name} = %{EVRD}
 Group: System/Libraries
+Obsoletes: mlt-qt5 <= %{EVRD}
 
 %description qt6
 Qt 6.x integration plugin for MLT
@@ -216,6 +195,8 @@ Qt 6.x integration plugin for MLT
 %files qt6
 %{_libdir}/mlt-%{major}/libmltqt6.so
 %{_libdir}/mlt-%{major}/libmltglaxnimate-qt6.so
+%{_libdir}/mlt-%{major}/libmltkdenlive.so
+%{_datadir}/mlt-%{major}/kdenlive/
 %{_datadir}/mlt-%{major}/glaxnimate-qt6
 %{_datadir}/mlt-%{major}/qt6
 
@@ -340,10 +321,8 @@ export CXX=g++
 	-DSWIG_LUA:BOOL=ON \
 	-DSWIG_PYTHON:BOOL=ON \
 	-DSWIG_RUBY:BOOL=ON \
-	-DMOD_GLAXNIMATE:BOOL=ON \
 	-DMOD_GLAXNIMATE_QT6:BOOL=ON \
  	-DMOD_SDL1=ON \
-	-DMOD_QT:BOOL=ON \
 	-DMOD_QT6:BOOL=ON \
 	-G Ninja
 
