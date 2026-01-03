@@ -48,6 +48,7 @@ BuildRequires:	pkgconfig(libquicktime)
 BuildRequires:	pkgconfig(libebur128)
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(lilv-0)
 BuildRequires:	pkgconfig(mad)
 BuildRequires:	pkgconfig(movit)
 BuildRequires:	pkgconfig(ogg)
@@ -66,6 +67,8 @@ BuildRequires:	pkgconfig(rubberband)
 BuildRequires:	pkgconfig(vidstab)
 BuildRequires:	pkgconfig(lua)
 BuildRequires:	cmake ninja
+BuildRequires:	qt6-qtbase-theme-gtk3
+BuildRequires:	vulkan-headers
 # For python-bindings
 BuildRequires:	swig
 BuildRequires:	pkgconfig(python3)
