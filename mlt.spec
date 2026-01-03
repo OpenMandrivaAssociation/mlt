@@ -192,6 +192,8 @@ Qt 6.x integration plugin for MLT
 %files qt6
 %{_libdir}/mlt-%{major}/libmltqt6.so
 %{_libdir}/mlt-%{major}/libmltglaxnimate-qt6.so
+%{_libdir}/mlt-%{major}/libmltkdenlive.so
+%{_datadir}/mlt-%{major}/kdenlive/
 %{_datadir}/mlt-%{major}/glaxnimate-qt6
 %{_datadir}/mlt-%{major}/qt6
 
