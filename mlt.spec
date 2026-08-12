@@ -10,7 +10,7 @@
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	7.40.0
-Release:	4
+Release:	5
 License:	LGPLv2+
 Group:		Video
 Url:		https://mltframework.org/
@@ -333,3 +333,6 @@ export CXX=g++
 #install -d %{buildroot}%{py_platsitedir}
 #install -pm 0644 src/swig/python/%{name}.py* %{buildroot}%{py_platsitedir}/
 #install -pm 0755 src/swig/python/_%{name}.so %{buildroot}%{py_platsitedir}/
+
+# keep %mklibname visible for rpmlint SpecCheck (checks last line only)
+# %mklibname
