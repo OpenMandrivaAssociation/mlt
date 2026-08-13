@@ -10,7 +10,7 @@
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	7.40.0
-Release:	10
+Release:	11
 License:	LGPLv2+
 Group:		Video
 Url:		https://mltframework.org/
@@ -129,6 +129,10 @@ API.
 %{_libdir}/mlt-%{major}/libmltvidstab.so
 %{_libdir}/mlt-%{major}/libmltvorbis.so
 %{_libdir}/mlt-%{major}/libmltxml.so
+%{_libdir}/mlt-%{major}/libmltrnnoise.so
+%{_libdir}/mlt-%{major}/libmltopenfx.so
+%{_datadir}/mlt-%{major}/rnnoise
+%{_datadir}/mlt-%{major}/openfx
 %{_mandir}/man1/melt-%{major}.1*
 
 #----------------------------------------------------------------------------
