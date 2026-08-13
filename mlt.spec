@@ -10,7 +10,7 @@
 Summary:	Media Lovin' Toolkit nonlinear video editing library
 Name:		mlt
 Version:	7.40.0
-Release:	8
+Release:	9
 License:	LGPLv2+
 Group:		Video
 Url:		https://mltframework.org/
@@ -64,6 +64,7 @@ BuildRequires:	pkgconfig(libarchive)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(rubberband)
 BuildRequires:	pkgconfig(vidstab)
+BuildRequires:	pkgconfig(rnnoise)
 BuildRequires:	pkgconfig(lua)
 BuildRequires:	cmake ninja
 BuildRequires:	qt6-qtbase-theme-gtk3
